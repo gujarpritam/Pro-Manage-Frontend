@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../apis/userAuth";
 import styles from "./Login.module.css";
 import email from "../../assets/icons/email.png";
@@ -8,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Login({ setAuth }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleFormChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -39,7 +41,7 @@ export default function Login({ setAuth }) {
 
     if (result) {
       console.log("logged in");
-      // navigate("/home");
+      navigate("/home");
       return;
     }
 
