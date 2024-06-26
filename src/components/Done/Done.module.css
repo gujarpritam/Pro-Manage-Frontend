@@ -1,0 +1,16 @@
+.container{
+  height: 100%;
+  width: 25%;
+  margin-left: 1rem;
+  background-color: #EEF2F5;
+}
+
+.heading{
+  width: 85%;
+  padding: 0.5rem 0rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid red;
+}

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import Backlog from "../Backlog/Backlog";
+import InProgress from "../InProgress/InProgress";
+import Done from "../Done/Done";
 import styles from "./Board.module.css";
 import addPeople from "../../assets/icons/addPeople.png";
+import ToDo from "../ToDo/ToDo";
 
 function Board() {
   const [name, setName] = useState(localStorage.getItem("name"));
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-  const days = [
+  const months = [
     "Jan",
     "Feb",
     "Mar",
@@ -27,7 +31,7 @@ function Board() {
     console.log(today);
 
     setDay(today.getDate());
-    setMonth(days[today.getMonth()]);
+    setMonth(months[today.getMonth()]);
     setYear(today.getFullYear());
   }, []);
 
@@ -51,10 +55,14 @@ function Board() {
       </div>
 
       <div className={styles.ticketContainer}>
+        <Backlog />
+        <ToDo />
+        <InProgress />
+        <Done />
+        {/* <div ></div>
         <div className={styles.subContainer}></div>
         <div className={styles.subContainer}></div>
-        <div className={styles.subContainer}></div>
-        <div className={styles.subContainer}></div>
+        <div className={styles.subContainer}></div> */}
       </div>
     </div>
   );
