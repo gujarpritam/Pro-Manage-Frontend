@@ -29,16 +29,38 @@ export const saveTask = async ({
   }
 };
 
-export const getToDoTask = async (filter) => {
+export const getTask = async (filter) => {
   try {
     console.log(filter);
     const reqUrl = `${
       process.env.REACT_APP_BACKEND_URL
-    }/task/getToDo?category=${filter || ""}`;
+    }/task/getTask?category=${filter || ""}`;
 
-    // const response = await axios.get(reqUrl);
+    const response = await axios.get(reqUrl);
+    console.log(response?.data?.data);
+    console.log(typeof response?.data?.data);
 
-    // return response?.data;
+    let result = Array.from(response?.data?.data);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateTaskQueueById = async (taskId, queue) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/updateQueue?id=${
+      taskId || ""
+    }&queue=${queue || ""}`;
+
+    // const token = localStorage.getItem("swiptoryToken");
+
+    // axios.defaults.headers.common["Authorization"] = token;
+    const response = await axios.put(reqUrl);
+
+    if (response?.data?.updated === true) {
+      localStorage.setItem("queue", queue);
+    }
   } catch (error) {
     console.log(error);
   }

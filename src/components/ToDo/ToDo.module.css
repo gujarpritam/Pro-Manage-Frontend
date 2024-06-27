@@ -26,3 +26,97 @@
   height: 2.5vh;
   width: 2.5vh;
 }
+
+.taskContainer{
+  overflow-y: scroll;
+  height: 90%;
+}
+
+.task{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin: 4%;
+  border-radius: 5px;
+  padding: 2%;
+  
+}
+.innerBox{
+  width: 90%;
+  height: 90%;
+}
+
+.boxOne{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: x-small;
+  margin: 3% 0%;
+  border: 1px solid salmon;
+}
+
+.boxTwo{
+  margin: 3% 0%;
+}
+
+.checklist{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: small;
+  font-weight: bold;
+  margin: 3% 0%;
+}
+
+.taskBox{
+    display: flex;
+  justify-content: space-between;
+    padding: 0.3rem 0rem;
+    margin: 0.2rem 0rem;
+    font-size: small;
+    border: 1px solid #E2E2E2;
+    border-radius: 10px;
+}
+
+.checkbox{
+  margin: 0rem 0.3rem;
+}
+
+.taskInput{
+  width: 90%;
+}
+
+.dueDate{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: xx-small;
+  font-weight: bold;
+  margin: 3% 0%;
+}
+
+.taskStatus{
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  background-color: #DBDBDB;
+  padding: 3%;
+  margin: 1%;
+}
+
+.statusBox{
+  width: 70%;
+  /* border: 1px solid blue; */
+  box-sizing: border-box;
+}
+
+.dateStatus{
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  /* background-color: #DBDBDB; */
+  padding: 3%;
+  margin: 1%;
+}
