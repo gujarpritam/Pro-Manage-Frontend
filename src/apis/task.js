@@ -59,8 +59,16 @@ export const updateTaskQueueById = async (taskId, queue) => {
     const response = await axios.put(reqUrl);
 
     if (response?.data?.updated === true) {
+      // let trigger = localStorage.getItem("trigger");
+      // console.log(trigger);
+      // if (trigger == 1) {
+      //   localStorage.setItem("trigger", 0);
+      // } else {
+      //   localStorage.setItem("trigger", 1);
+      // }
       localStorage.setItem("queue", queue);
     }
+    return response?.data?.updated;
   } catch (error) {
     console.log(error);
   }

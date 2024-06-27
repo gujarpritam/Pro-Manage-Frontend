@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.css";
 import Board from "../../components/Board/Board";
 import Analytics from "../../components/Analytics/Analytics";
@@ -14,7 +14,7 @@ import Logout from "../../components/Logout/Logout";
 function HomePage() {
   const [component, setComponent] = useState(1);
   const [logout, setLogout] = useState(0);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     if (component === 1) {
@@ -57,6 +57,12 @@ function HomePage() {
   const handleLogout = () => {
     setLogout(1);
   };
+
+  // useEffect(() => {
+  //   console.log(localStorage.getItem("trigger"));
+  // }, [trigger]);
+
+  // console.log(trigger);
 
   return (
     <div className={styles.container}>

@@ -10,7 +10,7 @@ import Task from "../Task/Task";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function ToDo() {
+function ToDo({ trigger, setTrigger }) {
   const [task, setTask] = useState(0);
   const [toDoTask, setToDoTask] = useState([]);
   const [checkedNumber, setCheckedNumber] = useState(0);
@@ -18,6 +18,8 @@ function ToDo() {
   const [month, setMonth] = useState("");
   const [checklistVisibility, setChecklistVisibility] = useState([]);
   const [collapseAllVal, setCollapseAllVal] = useState(1);
+  const [popUp, setPopUp] = useState([]);
+
   const months = [
     "Jan",
     "Feb",
@@ -42,11 +44,14 @@ function ToDo() {
     setToDoTask(result);
 
     let array = [];
+    let popUpArray = [];
     for (let i = 0; i < result.length; i++) {
       array.push(0);
+      popUpArray.push(false);
     }
     console.log(array);
     setChecklistVisibility([...array]);
+    setPopUp([...popUp]);
   };
 
   useEffect(() => {
@@ -57,9 +62,9 @@ function ToDo() {
   }, []);
 
   useEffect(() => {
-    let isTaskCreated = localStorage.getItem("isTaskCreated");
+    // let isTaskCreated = localStorage.getItem("isTaskCreated");
     fetchToDo();
-  }, [task]);
+  }, [task, trigger]);
 
   useEffect(() => {
     handleCollapseAll();
@@ -91,7 +96,16 @@ function ToDo() {
   const changeQueue = async (id, queue) => {
     console.log(id, queue);
 
-    await updateTaskQueueById(id, queue);
+    let result = await updateTaskQueueById(id, queue);
+    if (result === true) {
+      setTrigger(!trigger);
+    }
+  };
+
+  const openPopUp = (index) => {
+    let popUpArray = popUp;
+    popUpArray[index] = !popUp[index];
+    setPopUp([...popUpArray]);
   };
 
   console.log(collapseAllVal);
@@ -99,6 +113,7 @@ function ToDo() {
   console.log(toDoTask);
   console.log(day);
   console.log(month);
+  console.log(popUp);
 
   return (
     <div className={styles.container}>
@@ -124,8 +139,15 @@ function ToDo() {
               <div className={styles.innerBox}>
                 <div className={styles.boxOne}>
                   <span>{item?.priority.toUpperCase()} PRIORITY</span>
-                  <img src={dots} />
+                  <img src={dots} onClick={() => openPopUp(index)} />
                 </div>
+                {popUp[index] === true && (
+                  <div className={styles.popUp}>
+                    <button className={styles.edit}>Edit</button>
+                    <button className={styles.share}>Share</button>
+                    <button className={styles.delete}>Delete</button>
+                  </div>
+                )}
                 <h4 className={styles.boxTwo}>{item?.title}</h4>
                 <div className={styles.checklist}>
                   <span>
@@ -183,29 +205,33 @@ function ToDo() {
                 </div>
 
                 <div className={styles.dueDate}>
-                  <span
-                    style={{
-                      background:
-                        months.indexOf(item?.dueDate.split(" ")[0]) <
-                          months.indexOf(month) ||
-                        (months.indexOf(item?.dueDate.split(" ")[0]) ===
-                          months.indexOf(month) &&
-                          Number(item?.dueDate.split(" ")[1]) < day)
-                          ? "#CF3636"
-                          : "#DBDBDB",
-                      color:
-                        months.indexOf(item?.dueDate.split(" ")[0]) <
-                          months.indexOf(month) ||
-                        (months.indexOf(item?.dueDate.split(" ")[0]) ===
-                          months.indexOf(month) &&
-                          Number(item?.dueDate.split(" ")[1]) < day)
-                          ? "white"
-                          : "black",
-                    }}
-                    className={styles.dateStatus}
-                  >
-                    {item?.dueDate}
-                  </span>
+                  {item?.dueDate !== null ? (
+                    <span
+                      style={{
+                        background:
+                          months.indexOf(item?.dueDate?.split(" ")[0]) <
+                            months.indexOf(month) ||
+                          (months.indexOf(item?.dueDate?.split(" ")[0]) ===
+                            months.indexOf(month) &&
+                            Number(item?.dueDate?.split(" ")[1]) < day)
+                            ? "#CF3636"
+                            : "#DBDBDB",
+                        color:
+                          months.indexOf(item?.dueDate?.split(" ")[0]) <
+                            months.indexOf(month) ||
+                          (months.indexOf(item?.dueDate?.split(" ")[0]) ===
+                            months.indexOf(month) &&
+                            Number(item?.dueDate?.split(" ")[1]) < day)
+                            ? "white"
+                            : "black",
+                      }}
+                      className={styles.dateStatus}
+                    >
+                      {item?.dueDate}
+                    </span>
+                  ) : (
+                    <span></span>
+                  )}
                   <span className={styles.statusBox}>
                     <span
                       className={styles.taskStatus}

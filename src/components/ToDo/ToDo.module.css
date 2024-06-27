@@ -25,6 +25,7 @@
 .plusImg{
   height: 2.5vh;
   width: 2.5vh;
+  cursor: pointer;
 }
 
 .taskContainer{
@@ -45,6 +46,7 @@
 .innerBox{
   width: 90%;
   height: 90%;
+  position: relative;
 }
 
 .boxOne{
@@ -104,19 +106,49 @@
   background-color: #DBDBDB;
   padding: 3%;
   margin: 1%;
+  cursor: pointer;
 }
 
 .statusBox{
+  display: flex;
+  justify-content: flex-end;
   width: 70%;
   /* border: 1px solid blue; */
   box-sizing: border-box;
 }
 
 .dateStatus{
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   border: none;
   border-radius: 5px;
   /* background-color: #DBDBDB; */
   padding: 3%;
   margin: 1%;
+}
+
+.popUp{
+  width: 60%;
+  position: absolute;
+  right: 0px;
+  background: white;
+  border-radius: 5px;
+  /* height: 5%; */
+  box-shadow: 0px 2px 22px 0px #7E7A7A40;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* border: 1px solid rebeccapurple; */
+}
+
+.edit, .share, .delete{
+  background: none;
+  border: none;
+  padding: 0.1rem;
+  font-weight: bold;
+}
+
+.delete{
+  color: #CF3636;
 }

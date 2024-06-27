@@ -41,6 +41,7 @@ export default function Login({ setAuth }) {
 
     if (result) {
       console.log("logged in");
+      localStorage.setItem("trigger", 0);
       navigate("/home");
       return;
     }

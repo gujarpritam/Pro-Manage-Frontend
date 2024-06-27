@@ -11,6 +11,8 @@ function Board() {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+  const [trigger, setTrigger] = useState(true);
+
   const months = [
     "Jan",
     "Feb",
@@ -55,10 +57,10 @@ function Board() {
       </div>
 
       <div className={styles.ticketContainer}>
-        <Backlog />
-        <ToDo />
-        <InProgress />
-        <Done />
+        <Backlog trigger={trigger} setTrigger={setTrigger} />
+        <ToDo trigger={trigger} setTrigger={setTrigger} />
+        <InProgress trigger={trigger} setTrigger={setTrigger} />
+        <Done trigger={trigger} setTrigger={setTrigger} />
         {/* <div ></div>
         <div className={styles.subContainer}></div>
         <div className={styles.subContainer}></div>
