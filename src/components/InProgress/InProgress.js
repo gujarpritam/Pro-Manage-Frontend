@@ -157,7 +157,7 @@ function InProgress({ trigger, setTrigger }) {
                     </button>
 
                     <CopyToClipboard
-                      text={`http://localhost:3000/view-task/${item._id}`}
+                      text={`https://pro-manage-frontend-rho.vercel.app/view-task/${item._id}`}
                       onCopy={() =>
                         toast("Link Copied", {
                           position: "top-right",
