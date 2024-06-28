@@ -1,6 +1,6 @@
 .container{
   height: 100%;
-  width: 25%;
+  width: 30%;
   margin-left: 1rem;
   background-color: #EEF2F5;
 }
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .imgBox{
@@ -46,6 +46,7 @@
 
 
 .innerBox{
+  position: relative;
   width: 90%;
   height: 90%;
 }
@@ -58,7 +59,7 @@
   width: 100%;
   font-size: x-small;
   margin: 3% 0%;
-  border: 1px solid salmon;
+  /* border: 1px solid salmon; */
 }
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { saveTask } from "../../apis/task";
+import { saveTask, updateTask } from "../../apis/task";
 import styles from "./Task.module.css";
 import pinkCircle from "../../assets/icons/pink_circle.png";
 import greenCircle from "../../assets/icons/green_circle.png";
@@ -12,24 +12,47 @@ import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import task from "../../../../pro-manage-backend/models/task";
 
-function Task({ setTask }) {
+function Task({ setTask, taskDetails }) {
   const [checklistArr, setChecklistArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [checkedNumber, setCheckedNumber] = useState(0);
   const [email, setEmail] = useState(localStorage.getItem("email"));
 
   const [taskData, setTaskData] = useState({
-    title: "",
-    priority: "",
-    assignedTo: "",
-    queue: "todo",
-    tasks: [],
-    dueDate: null,
-    user: email,
+    title: "" || taskDetails?.title,
+    priority: "" || taskDetails?.priority,
+    assignedTo: "" || taskDetails?.assignedTo,
+    queue: taskDetails?.queue || "todo",
+    tasks: taskDetails?.tasks || [],
+    dueDate: taskDetails?.dueDate || null,
+    user: taskDetails?.email || email,
   });
 
   useEffect(() => {
     localStorage.removeItem("isTaskCreated");
+
+    if (taskData?.priority === "high") {
+      document
+        .getElementById("high")
+        .setAttribute("style", `background: #EEECEC;`);
+    }
+    if (taskData?.priority === "moderate") {
+      document
+        .getElementById("moderate")
+        .setAttribute("style", `background: #EEECEC;`);
+    }
+    if (taskData?.priority === "low") {
+      document
+        .getElementById("low")
+        .setAttribute("style", `background: #EEECEC;`);
+    }
+    if (taskDetails?._id) {
+      let checklist = [];
+      for (let i = 0; i < taskDetails?.tasks.length; i++) {
+        checklist.push(i);
+      }
+      setChecklistArr([...checklist]);
+    }
   }, []);
 
   const addTask = () => {
@@ -49,7 +72,6 @@ function Task({ setTask }) {
   };
 
   const handleCheckbox = (event) => {
-    // setIsFormChecked(event.target.checked);
     if (event.target.checked === true) {
       setCheckedNumber(checkedNumber + 1);
     } else {
@@ -203,31 +225,21 @@ function Task({ setTask }) {
       }
     }
 
-    // if (selectedDate !== null) {
-    //   console.log(typeof String(selectedDate));
-    // }
+    if (taskDetails?._id) {
+      console.log(taskDetails?._id);
+      await updateTask(taskDetails?._id, taskData);
+      setTask(0);
+      return;
+    }
 
     console.log(taskData);
     const result = await saveTask(taskData);
     setTask(0);
   };
 
-  // const selectDate = (e) => {
-  //   let d = e.target.value;
-  //   let arr = d.split("-");
-  //   let str = "";
-
-  //   console.log(arr);
-  //   str = arr[1] + "/" + arr[2] + "/" + arr[0];
-  //   console.log(str);
-
-  //   setTaskData({ ...taskData, ["dueDate"]: str });
-  // };
-
   console.log(taskData);
   console.log(checklistArr);
   console.log(typeof checklistArr);
-  // console.log(selectedDate);
 
   return (
     <div className={styles.container}>

@@ -73,3 +73,47 @@ export const updateTaskQueueById = async (taskId, queue) => {
     console.log(error);
   }
 };
+
+export const fetchTaskById = async (taskId) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/getOne?id=${
+      taskId || ""
+    }`;
+
+    const response = await axios.get(reqUrl);
+    // console.log(response?.data);
+    return response?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateTask = async (id, taskData) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/update?id=${
+      id || ""
+    }`;
+
+    const response = await axios.put(reqUrl, taskData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteTask = async (id) => {
+  try {
+    console.log(id);
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/delete?id=${
+      id || ""
+    }`;
+
+    const response = await axios.delete(reqUrl);
+    // console.log(response?.data?.data);
+    // console.log(typeof response?.data?.data);
+
+    // let result = Array.from(response?.data?.data);
+    return response?.data?.isDeleted;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Done.module.css";
 import collapseAll from "../../assets/icons/collapse-all.png";
-import { getTask, updateTaskQueueById } from "../../apis/task";
+import { getTask, updateTaskQueueById, fetchTaskById } from "../../apis/task";
+import Task from "../Task/Task";
 import dots from "../../assets/icons/dots.png";
 import arrowDown from "../../assets/icons/arrow-down.png";
 import arrowUp from "../../assets/icons/arrow-up.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Delete from "../Delete/Delete";
 
 function Done({ trigger, setTrigger }) {
+  const [task, setTask] = useState(0);
   const [doneTask, setDoneTask] = useState([]);
   const [checkedNumber, setCheckedNumber] = useState(0);
   const [day, setDay] = useState(new Date().getDate());
   const [month, setMonth] = useState("");
   const [checklistVisibility, setChecklistVisibility] = useState([]);
   const [collapseAllVal, setCollapseAllVal] = useState(1);
-  const [popUp, setPopUp] = useState(false);
+  const [popUp, setPopUp] = useState([]);
+  const [taskDetails, setTaskDetails] = useState({});
+  const [deleteVal, setDeleteVal] = useState(0);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   const months = [
     "Jan",
@@ -37,11 +44,14 @@ function Done({ trigger, setTrigger }) {
     setDoneTask(result);
 
     let array = [];
+    let popUpArray = [];
     for (let i = 0; i < result.length; i++) {
       array.push(0);
+      popUpArray.push(false);
     }
     console.log(array);
     setChecklistVisibility([...array]);
+    setPopUp([...popUpArray]);
   };
 
   useEffect(() => {
@@ -55,7 +65,7 @@ function Done({ trigger, setTrigger }) {
     // let isTaskCreated = localStorage.getItem("isTaskCreated");
     console.log(trigger);
     fetchDone();
-  }, [trigger]);
+  }, [task, trigger]);
 
   useEffect(() => {
     handleCollapseAll();
@@ -93,8 +103,23 @@ function Done({ trigger, setTrigger }) {
     }
   };
 
-  const openPopUp = () => {
-    setPopUp(!popUp);
+  const openPopUp = (index) => {
+    let popUpArray = popUp;
+    popUpArray[index] = !popUp[index];
+    setPopUp([...popUpArray]);
+  };
+
+  const fetchTask = async (taskId) => {
+    console.log(taskId);
+    let result = await fetchTaskById(taskId);
+    console.log(result);
+    setTaskDetails(result);
+    setTask(1);
+  };
+
+  const handleDelete = (taskId) => {
+    setTaskToDelete(taskId);
+    setDeleteVal(1);
   };
 
   console.log(collapseAllVal);
@@ -122,14 +147,47 @@ function Done({ trigger, setTrigger }) {
               <div className={styles.innerBox}>
                 <div className={styles.boxOne}>
                   <span>{item?.priority.toUpperCase()} PRIORITY</span>
-                  <img src={dots} onClick={openPopUp} />
+                  <img src={dots} onClick={() => openPopUp(index)} />
                 </div>
 
-                {popUp === true && (
+                {popUp[index] === true && (
                   <div className={styles.popUp}>
-                    <button className={styles.edit}>Edit</button>
-                    <button className={styles.share}>Share</button>
-                    <button className={styles.delete}>Delete</button>
+                    <button
+                      className={styles.edit}
+                      onClick={() => fetchTask(item?._id)}
+                    >
+                      Edit
+                    </button>
+
+                    <CopyToClipboard
+                      text={`http://localhost:3000/view-task/${item._id}`}
+                      onCopy={() =>
+                        toast("Link Copied", {
+                          position: "top-right",
+                          autoClose: 4000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: false,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                        })
+                      }
+                    >
+                      <button
+                        className={styles.share}
+                        // onClick={() => shareTask(item?._id)}
+                      >
+                        Share
+                      </button>
+                    </CopyToClipboard>
+
+                    <button
+                      className={styles.delete}
+                      onClick={() => handleDelete(item?._id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 )}
 
@@ -244,6 +302,15 @@ function Done({ trigger, setTrigger }) {
         })}
       </div>
 
+      {task === 1 && <Task setTask={setTask} taskDetails={taskDetails} />}
+      {deleteVal === 1 && (
+        <Delete
+          setDeleteVal={setDeleteVal}
+          taskToDelete={taskToDelete}
+          trigger={trigger}
+          setTrigger={setTrigger}
+        />
+      )}
       <ToastContainer />
     </div>
   );
