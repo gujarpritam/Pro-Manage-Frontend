@@ -6,6 +6,8 @@ export const saveTask = async ({
   assignedTo,
   queue,
   tasks,
+  checkedTasks,
+  checkedNumber,
   dueDate,
   user,
 }) => {
@@ -19,6 +21,8 @@ export const saveTask = async ({
       assignedTo,
       queue,
       tasks,
+      checkedTasks,
+      checkedNumber,
       dueDate,
       user,
     });
@@ -113,6 +117,50 @@ export const deleteTask = async (id) => {
 
     // let result = Array.from(response?.data?.data);
     return response?.data?.isDeleted;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDetails = async () => {
+  try {
+    // console.log(filter);
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/getAnalyticsDetails`;
+
+    const response = await axios.get(reqUrl);
+    console.log(response?.data?.data);
+    // console.log(typeof response?.data?.data);
+
+    let result = response?.data?.data;
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addUser = async (email) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/addUser?email=${
+      email || ""
+    }`;
+
+    const response = await axios.post(reqUrl);
+
+    return response?.data?.isUserCreated;
+    // localStorage.setItem("isTaskCreated", response?.data?.isTaskCreated);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAssignee = async () => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/getAssignee`;
+
+    console.log("assignee");
+    const response = await axios.get(reqUrl);
+
+    return response?.data?.data;
   } catch (error) {
     console.log(error);
   }

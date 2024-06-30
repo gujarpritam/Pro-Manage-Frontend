@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Register.module.css";
 import { registerUser } from "../../apis/userAuth";
+import { addUser } from "../../apis/task";
 import email from "../../assets/icons/email.png";
 import lock from "../../assets/icons/lock.png";
 import name from "../../assets/icons/name.png";
@@ -74,11 +75,13 @@ function Register({ setAuth }) {
         .setAttribute("style", `display: flex;`);
       return;
     }
+
     console.log(userData);
     const result = await registerUser(userData);
     console.log(result);
 
     if (result) {
+      await addUser(userData?.email);
       changeRegister();
     }
 

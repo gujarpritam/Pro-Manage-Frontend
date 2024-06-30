@@ -6,6 +6,9 @@ import collapseAll from "../../assets/icons/collapse-all.png";
 import dots from "../../assets/icons/dots.png";
 import arrowDown from "../../assets/icons/arrow-down.png";
 import arrowUp from "../../assets/icons/arrow-up.png";
+import lowPriorityImg from "../../assets/icons/green_circle.png";
+import moderatePriorityImg from "../../assets/icons/blue_circle.png";
+import highPriorityImg from "../../assets/icons/pink_circle.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -68,13 +71,32 @@ function InProgress({ trigger, setTrigger }) {
     handleCollapseAll();
   }, [collapseAllVal]);
 
-  const handleCheckbox = (event) => {
+  const handleCheckbox = (event, taskIndex, checklistIndex) => {
     // setIsFormChecked(event.target.checked);
+    let checkedTasks = progressTask[taskIndex]?.checkedTasks;
+    let checkedNumber = progressTask[taskIndex].checkedNumber;
+
     if (event.target.checked === true) {
-      setCheckedNumber(checkedNumber + 1);
+      checkedTasks[checklistIndex] = true;
+      checkedNumber = checkedNumber + 1;
+      // setCheckedNumber(checkedNumber + 1);
     } else {
-      setCheckedNumber(checkedNumber - 1);
+      checkedTasks[checklistIndex] = false;
+      checkedNumber = checkedNumber - 1;
+      // setCheckedNumber(checkedNumber - 1);
     }
+
+    console.log(checkedTasks);
+    let progressTaskObj = progressTask[taskIndex];
+    progressTaskObj = {
+      ...progressTaskObj,
+      ["checkedTasks"]: checkedTasks,
+      ["checkedNumber"]: checkedNumber,
+    };
+
+    let progressTaskArr = progressTask;
+    progressTaskArr[taskIndex] = progressTaskObj;
+    setProgressTask([...progressTaskArr]);
   };
 
   const handleCollapseAll = () => {
@@ -143,7 +165,28 @@ function InProgress({ trigger, setTrigger }) {
             <div className={styles.task}>
               <div className={styles.innerBox}>
                 <div className={styles.boxOne}>
-                  <span>{item?.priority.toUpperCase()} PRIORITY</span>
+                  <span>
+                    {item?.priority === "low" && <img src={lowPriorityImg} />}
+                    {item?.priority === "moderate" && (
+                      <img src={moderatePriorityImg} />
+                    )}
+                    {item?.priority === "high" && <img src={highPriorityImg} />}
+                    <span className={styles.priority}>
+                      {item?.priority.toUpperCase()} PRIORITY
+                    </span>
+                    <span>
+                      {item?.assignedTo ? (
+                        <span
+                          title={item?.assignedTo}
+                          className={styles.assignedTo}
+                        >
+                          {item?.assignedTo?.slice(0, 2).toUpperCase()}
+                        </span>
+                      ) : (
+                        <span></span>
+                      )}
+                    </span>
+                  </span>
                   <img src={dots} onClick={() => openPopUp(index)} />
                 </div>
 
@@ -188,10 +231,17 @@ function InProgress({ trigger, setTrigger }) {
                   </div>
                 )}
 
-                <h4 className={styles.boxTwo}>{item?.title}</h4>
+                {item?.title?.length < 20 ? (
+                  <h4 className={styles.boxTwo}>{item?.title}</h4>
+                ) : (
+                  <h4 className={styles.boxTwo} title={item?.title}>
+                    {item?.title?.slice(0, 19)}...
+                  </h4>
+                )}
+
                 <div className={styles.checklist}>
                   <span>
-                    Checklist ({checkedNumber} / {item?.tasks.length})
+                    Checklist ({item?.checkedNumber} / {item?.tasks.length})
                   </span>
                   {checklistVisibility[index] === 0 ? (
                     <img
@@ -221,14 +271,15 @@ function InProgress({ trigger, setTrigger }) {
                       checklistVisibility[index] === 0 ? "none" : "block",
                   }}
                 >
-                  {item?.tasks.map((subItem) => {
+                  {item?.tasks.map((subItem, i) => {
                     return (
                       <div className={styles.taskBox}>
                         <input
                           type="checkbox"
-                          onChange={handleCheckbox}
+                          onChange={(e) => handleCheckbox(e, index, i)}
                           name="checkbox"
                           // id={item}
+                          checked={item?.checkedTasks[i]}
                           className={styles.checkbox}
                         />
 

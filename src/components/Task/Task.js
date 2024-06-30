@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { saveTask, updateTask } from "../../apis/task";
+import { saveTask, updateTask, getAssignee } from "../../apis/task";
 import styles from "./Task.module.css";
 import pinkCircle from "../../assets/icons/pink_circle.png";
 import greenCircle from "../../assets/icons/green_circle.png";
@@ -15,8 +15,9 @@ import "react-datepicker/dist/react-datepicker.css";
 function Task({ setTask, taskDetails }) {
   const [checklistArr, setChecklistArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [checkedNumber, setCheckedNumber] = useState(0);
+  // const [checkedNumber, setCheckedNumber] = useState(0);
   const [email, setEmail] = useState(localStorage.getItem("email"));
+  const [assignee, setAssignee] = useState([]);
 
   const [taskData, setTaskData] = useState({
     title: "" || taskDetails?.title,
@@ -25,6 +26,8 @@ function Task({ setTask, taskDetails }) {
     queue: taskDetails?.queue || "todo",
     tasks: taskDetails?.tasks || [],
     dueDate: taskDetails?.dueDate || null,
+    checkedTasks: taskDetails?.checkedTasks || [],
+    checkedNumber: taskDetails?.checkedNumber || 0,
     user: taskDetails?.email || email,
   });
 
@@ -53,11 +56,14 @@ function Task({ setTask, taskDetails }) {
       }
       setChecklistArr([...checklist]);
     }
+
+    fetchAssignee();
   }, []);
 
   const addTask = () => {
     let arr = checklistArr;
     let tasks = taskData.tasks;
+    let checkedTasks = taskData?.checkedTasks;
 
     if (arr.length === 0) {
       arr.push(0);
@@ -67,16 +73,44 @@ function Task({ setTask, taskDetails }) {
     }
     console.log("arr", arr);
     tasks.push("");
-    setTaskData({ ...taskData, ["tasks"]: tasks });
+    checkedTasks.push(false);
+    setTaskData({
+      ...taskData,
+      ["tasks"]: tasks,
+      ["checkedTasks"]: checkedTasks,
+    });
     setChecklistArr([...arr]);
   };
 
-  const handleCheckbox = (event) => {
+  const handleCheckbox = (event, item) => {
+    let checkedTasks = taskData?.checkedTasks;
+    let checkedNumber = taskData?.checkedNumber;
+
     if (event.target.checked === true) {
-      setCheckedNumber(checkedNumber + 1);
+      checkedTasks[item] = true;
+      checkedNumber = checkedNumber + 1;
+      // setCheckedNumber(checkedNumber + 1);
     } else {
-      setCheckedNumber(checkedNumber - 1);
+      checkedTasks[item] = false;
+      checkedNumber = checkedNumber - 1;
+      // setCheckedNumber(checkedNumber - 1);
     }
+    setTaskData({
+      ...taskData,
+      ["checkedTasks"]: checkedTasks,
+      ["checkedNumber"]: checkedNumber,
+    });
+
+    console.log(taskData);
+  };
+
+  const fetchAssignee = async () => {
+    let result = await getAssignee();
+    console.log(result);
+    result = Array.from(result);
+    console.log(typeof result);
+
+    setAssignee([...result]);
   };
 
   const handleChange = (e) => {
@@ -125,6 +159,7 @@ function Task({ setTask, taskDetails }) {
   const deleteTask = (item) => {
     let arr = checklistArr;
     arr = Array.from(arr);
+    let checkedNumber = taskData?.checkedNumber;
 
     arr.splice(item, 1);
     for (let index = item; index < arr.length; index++) {
@@ -135,8 +170,20 @@ function Task({ setTask, taskDetails }) {
 
     let taskArray = taskData.tasks;
     taskArray.splice(item, 1);
-
     setTaskData({ ...taskData, ["tasks"]: taskArray });
+
+    let checkedTasks = taskData?.checkedTasks;
+
+    if (checkedTasks[item] === true) {
+      checkedNumber = checkedNumber - 1;
+    }
+
+    checkedTasks.splice(item, 1);
+    setTaskData({
+      ...taskData,
+      ["checkedTasks"]: [...checkedTasks],
+      ["checkedNumber"]: checkedNumber,
+    });
   };
 
   const handleTaskChange = (e, item) => {
@@ -163,6 +210,11 @@ function Task({ setTask, taskDetails }) {
     console.log(str);
 
     setTaskData({ ...taskData, ["dueDate"]: str });
+  };
+
+  const handleAssigneeChange = (e) => {
+    console.log(e.target.value);
+    setTaskData({ ...taskData, ["assignedTo"]: e.target.value });
   };
 
   const handleSubmit = async () => {
@@ -225,6 +277,11 @@ function Task({ setTask, taskDetails }) {
       }
     }
 
+    // console.log(checkedNumber);
+
+    // setTaskData({ ...taskData, ["checkedNumber"]: checkedNumber });
+    console.log(taskData);
+
     if (taskDetails?._id) {
       console.log(taskDetails?._id);
       await updateTask(taskDetails?._id, taskData);
@@ -237,9 +294,11 @@ function Task({ setTask, taskDetails }) {
     setTask(0);
   };
 
+  console.log(assignee);
   console.log(taskData);
   console.log(checklistArr);
   console.log(typeof checklistArr);
+  // console.log(checkedNumber);
 
   return (
     <div className={styles.container}>
@@ -294,28 +353,50 @@ function Task({ setTask, taskDetails }) {
             </button>
           </div>
 
+          <div className={styles.assignee}>
+            <label className={styles.assigneeLabel} htmlFor="assignee">
+              Assign to
+            </label>
+            <select
+              className={styles.selectAssignee}
+              type="text"
+              name="assignee"
+              value={taskData?.assignedTo}
+              onChange={(e) => handleAssigneeChange(e)}
+            >
+              <option className={styles.option} disabled selected>
+                Add a assignee
+              </option>
+
+              {assignee?.map((element) => (
+                <option className={styles.option}>{element?.email}</option>
+              ))}
+            </select>
+          </div>
+
           <label className={styles.label}>
-            Checklist ({checkedNumber}/{checklistArr.length})
+            Checklist ({taskData?.checkedNumber}/{checklistArr.length})
             <span className={styles.asterisk}>*</span>
           </label>
 
           <div className={styles.checklistBox}>
-            {checklistArr?.map((item) => {
+            {checklistArr?.map((item, index) => {
               return (
                 <div key={item} className={styles.task}>
                   <span className={styles.taskBox}>
                     <input
                       type="checkbox"
-                      onChange={handleCheckbox}
+                      onChange={(event) => handleCheckbox(event, item)}
                       name="checkbox"
                       id={item}
+                      checked={taskData?.checkedTasks[item]}
                       className={styles.checkbox}
                     />
 
                     <input
                       className={styles.taskInput}
                       name="task"
-                      value={taskData.tasks[item]}
+                      value={taskData?.tasks[item]}
                       onChange={(e) => handleTaskChange(e, item)}
                       type={"text"}
                       placeholder="Add a Task"

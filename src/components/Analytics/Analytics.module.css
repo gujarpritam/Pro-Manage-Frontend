@@ -1,0 +1,64 @@
+.container{
+  width: 85%;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+
+.heading{
+  /* width: 100%; */
+  height: 10%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  padding: 0rem 0.5rem;
+  margin-left: 1rem;
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+}
+
+.subContainer{
+  height: 40%;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 1rem;
+  /* border: 1px solid saddlebrown; */
+}
+
+.boxOne, .boxTwo{
+  display: flex;
+justify-content: center;
+align-items: center;
+  height: 100%;
+  width: 48%;
+  background: #F9FCFF;
+  border-radius: 10px;
+  /* border: 1px solid saddlebrown; */
+}
+
+.subBoxOne, .subBoxTwo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 80%;
+  width: 80%;
+  /* border: 1px solid greenyellow; */
+}
+
+.data{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid green; */
+}
+
+.analyticsImg{
+  margin-right: 3%;
+}
+
+.info{
+  width: 70%;
+}

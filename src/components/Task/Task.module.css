@@ -160,3 +160,23 @@ justify-content: space-between;
   width: 50%;
   /* border: 1px solid red; */
 }
+
+.assignee{
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 1rem;
+
+}
+
+.assigneeLabel{
+  width: 15%;
+  font-size: small;
+}
+
+.selectAssignee{
+  width: 80%;
+  font-size: small;
+  padding: 0.3rem;
+  box-shadow: 0px 1px 2px 0px #4D40551A;
+}

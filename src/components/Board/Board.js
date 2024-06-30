@@ -3,8 +3,9 @@ import Backlog from "../Backlog/Backlog";
 import InProgress from "../InProgress/InProgress";
 import Done from "../Done/Done";
 import styles from "./Board.module.css";
-import addPeople from "../../assets/icons/addPeople.png";
+import addPeopleImg from "../../assets/icons/addPeople.png";
 import ToDo from "../ToDo/ToDo";
+import AddPeople from "../AddPeople/AddPeople";
 
 function Board() {
   const [name, setName] = useState(localStorage.getItem("name"));
@@ -12,6 +13,7 @@ function Board() {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [trigger, setTrigger] = useState(true);
+  const [addPeople, setAddPeople] = useState(0);
 
   const months = [
     "Jan",
@@ -37,6 +39,10 @@ function Board() {
     setYear(today.getFullYear());
   }, []);
 
+  const handleAddPeople = () => {
+    setAddPeople(1);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.nameDisplay}>
@@ -49,8 +55,8 @@ function Board() {
       <div className={styles.heading}>
         <div className={styles.board}>
           <h2>Board</h2>
-          <span className={styles.addPeople}>
-            <img src={addPeople} />
+          <span className={styles.addPeople} onClick={handleAddPeople}>
+            <img src={addPeopleImg} />
             Add People
           </span>
         </div>
@@ -61,11 +67,9 @@ function Board() {
         <ToDo trigger={trigger} setTrigger={setTrigger} />
         <InProgress trigger={trigger} setTrigger={setTrigger} />
         <Done trigger={trigger} setTrigger={setTrigger} />
-        {/* <div ></div>
-        <div className={styles.subContainer}></div>
-        <div className={styles.subContainer}></div>
-        <div className={styles.subContainer}></div> */}
       </div>
+
+      {addPeople === 1 && <AddPeople setAddPeople={setAddPeople} />}
     </div>
   );
 }
