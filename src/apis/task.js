@@ -33,12 +33,12 @@ export const saveTask = async ({
   }
 };
 
-export const getTask = async (filter) => {
+export const getTask = async (category, timeStamp) => {
   try {
-    console.log(filter);
+    console.log(category, timeStamp);
     const reqUrl = `${
       process.env.REACT_APP_BACKEND_URL
-    }/task/getTask?category=${filter || ""}`;
+    }/task/getTask?category=${category || ""}&timeStamp=${timeStamp || ""}`;
 
     const response = await axios.get(reqUrl);
     console.log(response?.data?.data);

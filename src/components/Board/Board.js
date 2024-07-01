@@ -14,6 +14,8 @@ function Board() {
   const [year, setYear] = useState("");
   const [trigger, setTrigger] = useState(true);
   const [addPeople, setAddPeople] = useState(0);
+  const [timeStamp, setTimeStamp] = useState("This Week");
+  // const [timeStampId, setTimeStampId] = useState("week");
 
   const months = [
     "Jan",
@@ -43,6 +45,21 @@ function Board() {
     setAddPeople(1);
   };
 
+  const handleTimeStampChange = (e) => {
+    console.log(e.target.value);
+    if (e.target.value === "Today") {
+      setTimeStamp(e.target.value);
+    }
+    if (e.target.value === "This Week") {
+      setTimeStamp(e.target.value);
+    }
+    if (e.target.value === "This Month") {
+      setTimeStamp(e.target.value);
+    }
+  };
+
+  console.log(timeStamp);
+
   return (
     <div className={styles.container}>
       <div className={styles.nameDisplay}>
@@ -60,13 +77,39 @@ function Board() {
             Add People
           </span>
         </div>
+
+        <select
+          className={styles.selectTime}
+          type="text"
+          name="timestamp"
+          value={timeStamp}
+          onChange={(e) => handleTimeStampChange(e)}
+        >
+          <option className={styles.option} id="today">
+            Today
+          </option>
+          <option selected className={styles.option} id="week">
+            This Week
+          </option>
+          <option className={styles.option} id="month">
+            This Month
+          </option>
+        </select>
       </div>
 
       <div className={styles.ticketContainer}>
-        <Backlog trigger={trigger} setTrigger={setTrigger} />
-        <ToDo trigger={trigger} setTrigger={setTrigger} />
-        <InProgress trigger={trigger} setTrigger={setTrigger} />
-        <Done trigger={trigger} setTrigger={setTrigger} />
+        <Backlog
+          trigger={trigger}
+          setTrigger={setTrigger}
+          timeStamp={timeStamp}
+        />
+        <ToDo trigger={trigger} setTrigger={setTrigger} timeStamp={timeStamp} />
+        <InProgress
+          trigger={trigger}
+          setTrigger={setTrigger}
+          timeStamp={timeStamp}
+        />
+        <Done trigger={trigger} setTrigger={setTrigger} timeStamp={timeStamp} />
       </div>
 
       {addPeople === 1 && <AddPeople setAddPeople={setAddPeople} />}

@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Delete from "../Delete/Delete";
 
-function Done({ trigger, setTrigger }) {
+function Done({ trigger, setTrigger, timeStamp }) {
   const [task, setTask] = useState(0);
   const [doneTask, setDoneTask] = useState([]);
   const [checkedNumber, setCheckedNumber] = useState(0);
@@ -43,12 +43,12 @@ function Done({ trigger, setTrigger }) {
   ];
 
   const fetchDone = async () => {
-    const result = await getTask("done");
+    const result = await getTask("done", timeStamp);
     setDoneTask(result);
 
     let array = [];
     let popUpArray = [];
-    for (let i = 0; i < result.length; i++) {
+    for (let i = 0; i < result?.length; i++) {
       array.push(0);
       popUpArray.push(false);
     }
@@ -68,7 +68,7 @@ function Done({ trigger, setTrigger }) {
     // let isTaskCreated = localStorage.getItem("isTaskCreated");
     console.log(trigger);
     fetchDone();
-  }, [task, trigger]);
+  }, [task, trigger, timeStamp]);
 
   useEffect(() => {
     handleCollapseAll();
@@ -149,6 +149,7 @@ function Done({ trigger, setTrigger }) {
   console.log(doneTask);
   console.log(day);
   console.log(month);
+  console.log(timeStamp);
 
   return (
     <div className={styles.container}>

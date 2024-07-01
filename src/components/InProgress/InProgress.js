@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Delete from "../Delete/Delete";
 
-function InProgress({ trigger, setTrigger }) {
+function InProgress({ trigger, setTrigger, timeStamp }) {
   const [task, setTask] = useState(0);
   const [progressTask, setProgressTask] = useState([]);
   const [checkedNumber, setCheckedNumber] = useState(0);
@@ -43,11 +43,11 @@ function InProgress({ trigger, setTrigger }) {
   ];
 
   const fetchProgress = async () => {
-    const result = await getTask("progress");
+    const result = await getTask("progress", timeStamp);
     setProgressTask(result);
 
     let array = [];
-    for (let i = 0; i < result.length; i++) {
+    for (let i = 0; i < result?.length; i++) {
       array.push(0);
     }
     console.log(array);
@@ -65,7 +65,7 @@ function InProgress({ trigger, setTrigger }) {
     // let isTaskCreated = localStorage.getItem("isTaskCreated");
     console.log(trigger);
     fetchProgress();
-  }, [task, trigger]);
+  }, [task, trigger, timeStamp]);
 
   useEffect(() => {
     handleCollapseAll();
@@ -146,6 +146,7 @@ function InProgress({ trigger, setTrigger }) {
   console.log(progressTask);
   console.log(day);
   console.log(month);
+  console.log(timeStamp);
 
   return (
     <div className={styles.container}>

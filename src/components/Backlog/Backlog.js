@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Delete from "../Delete/Delete";
 
-function Backlog({ trigger, setTrigger }) {
+function Backlog({ trigger, setTrigger, timeStamp }) {
   const [task, setTask] = useState(0);
   const [backlogTask, setBacklogTask] = useState([]);
   const [checkedNumber, setCheckedNumber] = useState(0);
@@ -48,12 +48,12 @@ function Backlog({ trigger, setTrigger }) {
   // };
 
   const fetchBacklog = async () => {
-    const result = await getTask("backlog");
+    const result = await getTask("backlog", timeStamp);
     setBacklogTask(result);
 
     let array = [];
     let popUpArray = [];
-    for (let i = 0; i < result.length; i++) {
+    for (let i = 0; i < result?.length; i++) {
       array.push(0);
       popUpArray.push(false);
     }
@@ -73,7 +73,7 @@ function Backlog({ trigger, setTrigger }) {
     // let isTaskCreated = localStorage.getItem("isTaskCreated");
     console.log(trigger);
     fetchBacklog();
-  }, [task, trigger]);
+  }, [task, trigger, timeStamp]);
 
   useEffect(() => {
     handleCollapseAll();
@@ -154,6 +154,7 @@ function Backlog({ trigger, setTrigger }) {
   console.log(backlogTask);
   console.log(day);
   console.log(month);
+  console.log(timeStamp);
 
   return (
     <div className={styles.container}>
