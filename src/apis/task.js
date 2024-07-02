@@ -33,12 +33,14 @@ export const saveTask = async ({
   }
 };
 
-export const getTask = async (category, timeStamp) => {
+export const getTask = async (category, timeStamp, user) => {
   try {
-    console.log(category, timeStamp);
+    console.log(category, timeStamp, user);
     const reqUrl = `${
       process.env.REACT_APP_BACKEND_URL
-    }/task/getTask?category=${category || ""}&timeStamp=${timeStamp || ""}`;
+    }/task/getTask?category=${category || ""}&timeStamp=${
+      timeStamp || ""
+    }&user=${user || ""}`;
 
     const response = await axios.get(reqUrl);
     console.log(response?.data?.data);
@@ -122,10 +124,12 @@ export const deleteTask = async (id) => {
   }
 };
 
-export const getDetails = async () => {
+export const getDetails = async (user) => {
   try {
     // console.log(filter);
-    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/getAnalyticsDetails`;
+    const reqUrl = `${
+      process.env.REACT_APP_BACKEND_URL
+    }/task/getAnalyticsDetails?user=${user || ""}`;
 
     const response = await axios.get(reqUrl);
     console.log(response?.data?.data);

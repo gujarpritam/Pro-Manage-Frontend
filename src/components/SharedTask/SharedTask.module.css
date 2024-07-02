@@ -18,7 +18,7 @@ align-items: center;
 
 .boxOne{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   font-size: x-small;
@@ -103,11 +103,16 @@ align-items: center;
   /* box-sizing: border-box; */
   border: none;
   border-radius: 5px;
-  /* background-color: #DBDBDB; */
+  background-color: #CF3636;
   padding: 1.5%;
   margin: 1%;
+  color: #FFFFFF;
   /* font-weight: bold; */
   font-size: x-small;
+}
+
+.priority{
+  margin-left: 0.3rem;
 }
 
 @media (max-width:550px){

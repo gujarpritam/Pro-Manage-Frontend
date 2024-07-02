@@ -26,6 +26,7 @@ function Backlog({ trigger, setTrigger, timeStamp }) {
   const [taskDetails, setTaskDetails] = useState({});
   const [deleteVal, setDeleteVal] = useState(0);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem("email"));
   // const [isBacklog, setIsBacklog] = useState(localStorage.getItem("queue"));
 
   const months = [
@@ -48,7 +49,7 @@ function Backlog({ trigger, setTrigger, timeStamp }) {
   // };
 
   const fetchBacklog = async () => {
-    const result = await getTask("backlog", timeStamp);
+    const result = await getTask("backlog", timeStamp, user);
     setBacklogTask(result);
 
     let array = [];
@@ -155,6 +156,7 @@ function Backlog({ trigger, setTrigger, timeStamp }) {
   console.log(day);
   console.log(month);
   console.log(timeStamp);
+  console.log(user);
 
   return (
     <div className={styles.container}>
@@ -181,7 +183,7 @@ function Backlog({ trigger, setTrigger, timeStamp }) {
                     )}
                     {item?.priority === "high" && <img src={highPriorityImg} />}
                     <span className={styles.priority}>
-                      {item?.priority.toUpperCase()} PRIORITY
+                      {item?.priority?.toUpperCase()} PRIORITY
                     </span>
                     <span>
                       {item?.assignedTo ? (
@@ -189,7 +191,7 @@ function Backlog({ trigger, setTrigger, timeStamp }) {
                           title={item?.assignedTo}
                           className={styles.assignedTo}
                         >
-                          {item?.assignedTo?.slice(0, 2).toUpperCase()}
+                          {item?.assignedTo?.slice(0, 2)?.toUpperCase()}
                         </span>
                       ) : (
                         <span></span>
@@ -360,7 +362,13 @@ function Backlog({ trigger, setTrigger, timeStamp }) {
         })}
       </div>
 
-      {task === 1 && <Task setTask={setTask} taskDetails={taskDetails} />}
+      {task === 1 && (
+        <Task
+          setTask={setTask}
+          taskDetails={taskDetails}
+          setTaskDetails={setTaskDetails}
+        />
+      )}
       {deleteVal === 1 && (
         <Delete
           setDeleteVal={setDeleteVal}

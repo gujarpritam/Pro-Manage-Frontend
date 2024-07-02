@@ -5,9 +5,10 @@ import analytics from "../../assets/icons/analytics.png";
 
 function Analytics() {
   const [info, setInfo] = useState({});
+  const [user, setUser] = useState(localStorage.getItem("email"));
 
   const fetchDetails = async () => {
-    let result = await getDetails();
+    let result = await getDetails(user);
     setInfo({ ...result });
   };
 

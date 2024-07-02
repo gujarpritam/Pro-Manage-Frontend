@@ -12,7 +12,7 @@ import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import task from "../../../../pro-manage-backend/models/task";
 
-function Task({ setTask, taskDetails }) {
+function Task({ setTask, taskDetails, setTaskDetails }) {
   const [checklistArr, setChecklistArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   // const [checkedNumber, setCheckedNumber] = useState(0);
@@ -197,6 +197,7 @@ function Task({ setTask, taskDetails }) {
 
   const handleCancel = () => {
     setTask(0);
+    setTaskDetails({});
   };
 
   const chooseDate = (d) => {
@@ -219,7 +220,7 @@ function Task({ setTask, taskDetails }) {
 
   const handleSubmit = async () => {
     console.log(taskData);
-    if (taskData?.title.length === 0) {
+    if (taskData?.title == null || taskData?.title?.length === 0) {
       toast("Please enter the title", {
         position: "top-center",
         autoClose: 4000,
@@ -233,7 +234,7 @@ function Task({ setTask, taskDetails }) {
       return;
     }
 
-    if (taskData?.priority.length === 0) {
+    if (taskData?.priority == null || taskData?.priority?.length === 0) {
       toast("Please enter the priority", {
         position: "top-center",
         autoClose: 4000,
@@ -247,7 +248,7 @@ function Task({ setTask, taskDetails }) {
       return;
     }
 
-    if (taskData?.tasks.length === 0 || taskData?.tasks[0].length === 0) {
+    if (taskData?.tasks?.length === 0 || taskData?.tasks[0]?.length === 0) {
       toast("Please enter the first task", {
         position: "top-center",
         autoClose: 4000,
@@ -285,12 +286,14 @@ function Task({ setTask, taskDetails }) {
     if (taskDetails?._id) {
       console.log(taskDetails?._id);
       await updateTask(taskDetails?._id, taskData);
+      setTaskDetails({});
       setTask(0);
       return;
     }
 
     console.log(taskData);
     const result = await saveTask(taskData);
+    setTaskDetails({});
     setTask(0);
   };
 
@@ -357,25 +360,40 @@ function Task({ setTask, taskDetails }) {
             <label className={styles.assigneeLabel} htmlFor="assignee">
               Assign to
             </label>
-            <select
-              className={styles.selectAssignee}
-              type="text"
-              name="assignee"
-              value={taskData?.assignedTo}
-              onChange={(e) => handleAssigneeChange(e)}
-            >
-              <option className={styles.option} disabled selected>
-                Add a assignee
-              </option>
 
-              {assignee?.map((element) => (
-                <option className={styles.option}>{element?.email}</option>
-              ))}
-            </select>
+            {taskDetails?._id != null && taskDetails?.user != email ? (
+              <select
+                className={styles.selectAssignee}
+                type="text"
+                name="assignee"
+                value={taskDetails?.assignedTo}
+                // onChange={(e) => handleAssigneeChange(e)}
+              >
+                <option className={styles.option} disabled selected>
+                  {taskDetails?.assignedTo}
+                </option>
+              </select>
+            ) : (
+              <select
+                className={styles.selectAssignee}
+                type="text"
+                name="assignee"
+                value={taskData?.assignedTo}
+                onChange={(e) => handleAssigneeChange(e)}
+              >
+                <option className={styles.option} disabled selected>
+                  Add a assignee
+                </option>
+
+                {assignee?.map((element) => (
+                  <option className={styles.option}>{element?.email}</option>
+                ))}
+              </select>
+            )}
           </div>
 
           <label className={styles.label}>
-            Checklist ({taskData?.checkedNumber}/{checklistArr.length})
+            Checklist ({taskData?.checkedNumber}/{checklistArr?.length})
             <span className={styles.asterisk}>*</span>
           </label>
 
@@ -406,12 +424,12 @@ function Task({ setTask, taskDetails }) {
                 </div>
               );
             })}
-
-            <button className={styles.addNew} onClick={addTask}>
-              <img className={styles.plusImg} src={plus} />
-              Add New
-            </button>
           </div>
+
+          <button className={styles.addNew} onClick={addTask}>
+            <img className={styles.plusImg} src={plus} />
+            Add New
+          </button>
         </div>
 
         <div className={styles.buttonContainer}>
@@ -436,3 +454,26 @@ function Task({ setTask, taskDetails }) {
 }
 
 export default Task;
+
+{
+  /* <div className={styles.assignee}>
+            <label className={styles.assigneeLabel} htmlFor="assignee">
+              Assign to
+            </label>
+            <select
+              className={styles.selectAssignee}
+              type="text"
+              name="assignee"
+              value={taskData?.assignedTo}
+              onChange={(e) => handleAssigneeChange(e)}
+            >
+              <option className={styles.option} disabled selected>
+                Add a assignee
+              </option>
+
+              {assignee?.map((element) => (
+                <option className={styles.option}>{element?.email}</option>
+              ))}
+            </select>
+          </div> */
+}
