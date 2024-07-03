@@ -3,6 +3,8 @@ import styles from "./SharedTask.module.css";
 import lowPriorityImg from "../../assets/icons/green_circle.png";
 import moderatePriorityImg from "../../assets/icons/blue_circle.png";
 import highPriorityImg from "../../assets/icons/pink_circle.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SharedTask({ taskDetails }) {
   const [day, setDay] = useState(new Date().getDate());
@@ -59,6 +61,18 @@ function SharedTask({ taskDetails }) {
                   name="checkbox"
                   checked={taskDetails?.checkedTasks[index]}
                   className={styles.checkbox}
+                  onClick={() =>
+                    toast("Read Only", {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    })
+                  }
                 />
 
                 <p className={styles.taskInput} name="task" type={"text"}>
@@ -78,6 +92,7 @@ function SharedTask({ taskDetails }) {
           <span></span>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

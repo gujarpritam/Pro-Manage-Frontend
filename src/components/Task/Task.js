@@ -274,11 +274,6 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
     setTask(0);
   };
 
-  console.log(assignee);
-  console.log(taskData);
-  console.log(checklistArr);
-  console.log(typeof checklistArr);
-
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>

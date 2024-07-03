@@ -24,6 +24,21 @@ function AddPeople({ setAddPeople }) {
       return;
     }
 
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(pattern)) {
+      toast("Invalid Email", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
     let result = await addUser(email);
 
     if (result === true) {

@@ -159,6 +159,7 @@
   border: none;
   padding: 0.1rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .delete{
@@ -178,3 +179,13 @@
 .priority{
   margin-left: 0.3rem;
 }
+
+@media (max-width:1200px){
+  .taskStatus{
+    padding: 3% 1%;
+    font-size: xx-small;
+  }
+  .dateStatus{
+    padding: 3% 1%;
+  }
+  }
