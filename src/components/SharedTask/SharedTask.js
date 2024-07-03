@@ -62,7 +62,7 @@ function SharedTask({ taskDetails }) {
                   checked={taskDetails?.checkedTasks[index]}
                   className={styles.checkbox}
                   onClick={() =>
-                    toast("Read Only", {
+                    toast("Read Only!", {
                       position: "top-center",
                       autoClose: 5000,
                       hideProgressBar: true,
