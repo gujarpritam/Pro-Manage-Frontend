@@ -139,15 +139,6 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
     setDeleteVal(1);
   };
 
-  console.log(collapseAllVal);
-  console.log(checklistVisibility);
-  console.log(toDoTask);
-  console.log(day);
-  console.log(month);
-  console.log(popUp);
-  console.log(timeStamp);
-  console.log(user);
-
   return (
     <div className={styles.container}>
       <div className={styles.heading}>

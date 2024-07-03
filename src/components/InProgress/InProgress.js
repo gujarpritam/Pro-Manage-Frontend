@@ -131,14 +131,6 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
     setDeleteVal(1);
   };
 
-  console.log(collapseAllVal);
-  console.log(checklistVisibility);
-  console.log(progressTask);
-  console.log(day);
-  console.log(month);
-  console.log(timeStamp);
-  console.log(user);
-
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
