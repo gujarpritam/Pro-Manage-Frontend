@@ -10,12 +10,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import task from "../../../../pro-manage-backend/models/task";
 
 function Task({ setTask, taskDetails, setTaskDetails }) {
   const [checklistArr, setChecklistArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  // const [checkedNumber, setCheckedNumber] = useState(0);
   const [email, setEmail] = useState(localStorage.getItem("email"));
   const [assignee, setAssignee] = useState([]);
 
@@ -68,10 +66,8 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
     if (arr.length === 0) {
       arr.push(0);
     } else {
-      console.log("arr.at(-1)", arr.at(-1));
       arr.push(arr.at(-1) + 1);
     }
-    console.log("arr", arr);
     tasks.push("");
     checkedTasks.push(false);
     setTaskData({
@@ -89,26 +85,20 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
     if (event.target.checked === true) {
       checkedTasks[item] = true;
       checkedNumber = checkedNumber + 1;
-      // setCheckedNumber(checkedNumber + 1);
     } else {
       checkedTasks[item] = false;
       checkedNumber = checkedNumber - 1;
-      // setCheckedNumber(checkedNumber - 1);
     }
     setTaskData({
       ...taskData,
       ["checkedTasks"]: checkedTasks,
       ["checkedNumber"]: checkedNumber,
     });
-
-    console.log(taskData);
   };
 
   const fetchAssignee = async () => {
     let result = await getAssignee();
-    console.log(result);
     result = Array.from(result);
-    console.log(typeof result);
 
     setAssignee([...result]);
   };
@@ -165,7 +155,6 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
     for (let index = item; index < arr.length; index++) {
       arr[index] = arr[index] - 1;
     }
-    console.log("arr", arr);
     setChecklistArr([...arr]);
 
     let taskArray = taskData.tasks;
@@ -202,24 +191,19 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
 
   const chooseDate = (d) => {
     d = String(d);
-    console.log(d);
 
     let dateArray = d.split(" ");
-    console.log(dateArray);
 
     let str = dateArray[1] + " " + dateArray[2];
-    console.log(str);
 
     setTaskData({ ...taskData, ["dueDate"]: str });
   };
 
   const handleAssigneeChange = (e) => {
-    console.log(e.target.value);
     setTaskData({ ...taskData, ["assignedTo"]: e.target.value });
   };
 
   const handleSubmit = async () => {
-    console.log(taskData);
     if (taskData?.title == null || taskData?.title?.length === 0) {
       toast("Please enter the title", {
         position: "top-center",
@@ -278,20 +262,13 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
       }
     }
 
-    // console.log(checkedNumber);
-
-    // setTaskData({ ...taskData, ["checkedNumber"]: checkedNumber });
-    console.log(taskData);
-
     if (taskDetails?._id) {
-      console.log(taskDetails?._id);
       await updateTask(taskDetails?._id, taskData);
       setTaskDetails({});
       setTask(0);
       return;
     }
 
-    console.log(taskData);
     const result = await saveTask(taskData);
     setTaskDetails({});
     setTask(0);
@@ -301,7 +278,6 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
   console.log(taskData);
   console.log(checklistArr);
   console.log(typeof checklistArr);
-  // console.log(checkedNumber);
 
   return (
     <div className={styles.container}>
@@ -367,7 +343,6 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
                 type="text"
                 name="assignee"
                 value={taskDetails?.assignedTo}
-                // onChange={(e) => handleAssigneeChange(e)}
               >
                 <option className={styles.option} disabled selected>
                   {taskDetails?.assignedTo}
@@ -454,26 +429,3 @@ function Task({ setTask, taskDetails, setTaskDetails }) {
 }
 
 export default Task;
-
-{
-  /* <div className={styles.assignee}>
-            <label className={styles.assigneeLabel} htmlFor="assignee">
-              Assign to
-            </label>
-            <select
-              className={styles.selectAssignee}
-              type="text"
-              name="assignee"
-              value={taskData?.assignedTo}
-              onChange={(e) => handleAssigneeChange(e)}
-            >
-              <option className={styles.option} disabled selected>
-                Add a assignee
-              </option>
-
-              {assignee?.map((element) => (
-                <option className={styles.option}>{element?.email}</option>
-              ))}
-            </select>
-          </div> */
-}

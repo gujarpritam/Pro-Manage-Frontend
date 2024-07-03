@@ -4,7 +4,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 1px solid red; */
 }
 
 .subContainerOne{
@@ -25,7 +24,6 @@
   align-items: center;
   height: 100%;
   width: 40%;
-  /* border: 1px solid saddlebrown; */
 }
 
 .welcomeImg{

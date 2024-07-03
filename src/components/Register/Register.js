@@ -76,9 +76,7 @@ function Register({ setAuth }) {
       return;
     }
 
-    console.log(userData);
     const result = await registerUser(userData);
-    console.log(result);
 
     if (result) {
       await addUser(userData?.email);
@@ -97,7 +95,6 @@ function Register({ setAuth }) {
     });
   };
 
-  console.log(userData);
   return (
     <div className={styles.container}>
       <h1>Register</h1>

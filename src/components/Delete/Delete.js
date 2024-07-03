@@ -1,11 +1,8 @@
 import React from "react";
 import { deleteTask } from "../../apis/task";
-// import { useNavigate } from "react-router-dom";
 import styles from "./Delete.module.css";
 
 function Delete({ setDeleteVal, taskToDelete, trigger, setTrigger }) {
-  // const navigate = useNavigate();
-
   const handleDelete = async () => {
     let result = await deleteTask(taskToDelete);
     if (result === true) {

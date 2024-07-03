@@ -12,12 +12,10 @@
   font-weight: bold;
   padding: 0rem 0.5rem;
   box-sizing: border-box;
-  border: 1px solid red;
 }
 
 .board{
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -38,9 +36,7 @@
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
-  /* justify-content: space-between; */
   align-items: center;
-  /* border: 1px solid red; */
 }
 
 .subContainer{

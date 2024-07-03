@@ -8,14 +8,12 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
-  
 }
 
 .subContainer{
   height: 30vh;
   width: 25vw;
   display: flex;
-  
   align-items: center;
   justify-content: center;
   background: white;

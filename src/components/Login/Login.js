@@ -40,7 +40,6 @@ export default function Login({ setAuth }) {
     const result = await loginUser(formData);
 
     if (result) {
-      console.log("logged in");
       localStorage.setItem("trigger", 0);
       navigate("/home");
       return;

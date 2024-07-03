@@ -51,7 +51,6 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
     for (let i = 0; i < result?.length; i++) {
       array.push(0);
     }
-    console.log(array);
     setChecklistVisibility([...array]);
   };
 
@@ -63,8 +62,6 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
   }, []);
 
   useEffect(() => {
-    // let isTaskCreated = localStorage.getItem("isTaskCreated");
-    console.log(trigger);
     fetchProgress();
   }, [task, trigger, timeStamp]);
 
@@ -73,21 +70,17 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
   }, [collapseAllVal]);
 
   const handleCheckbox = (event, taskIndex, checklistIndex) => {
-    // setIsFormChecked(event.target.checked);
     let checkedTasks = progressTask[taskIndex]?.checkedTasks;
     let checkedNumber = progressTask[taskIndex].checkedNumber;
 
     if (event.target.checked === true) {
       checkedTasks[checklistIndex] = true;
       checkedNumber = checkedNumber + 1;
-      // setCheckedNumber(checkedNumber + 1);
     } else {
       checkedTasks[checklistIndex] = false;
       checkedNumber = checkedNumber - 1;
-      // setCheckedNumber(checkedNumber - 1);
     }
 
-    console.log(checkedTasks);
     let progressTaskObj = progressTask[taskIndex];
     progressTaskObj = {
       ...progressTaskObj,
@@ -115,8 +108,6 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
   };
 
   const changeQueue = async (id, queue) => {
-    console.log(id, queue);
-
     let result = await updateTaskQueueById(id, queue);
     if (result === true) {
       setTrigger(!trigger);
@@ -130,9 +121,7 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
   };
 
   const fetchTask = async (taskId) => {
-    console.log(taskId);
     let result = await fetchTaskById(taskId);
-    console.log(result);
     setTaskDetails(result);
     setTask(1);
   };
@@ -159,6 +148,7 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
           onClick={() => {
             collapseAllVal === 1 ? setCollapseAllVal(0) : setCollapseAllVal(1);
           }}
+          className={styles.collapse}
         />
       </div>
 
@@ -190,7 +180,11 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
                       )}
                     </span>
                   </span>
-                  <img src={dots} onClick={() => openPopUp(index)} />
+                  <img
+                    src={dots}
+                    onClick={() => openPopUp(index)}
+                    className={styles.popUpDots}
+                  />
                 </div>
 
                 {popUp[index] === true && (
@@ -217,12 +211,7 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
                         })
                       }
                     >
-                      <button
-                        className={styles.share}
-                        // onClick={() => shareTask(item?._id)}
-                      >
-                        Share
-                      </button>
+                      <button className={styles.share}>Share</button>
                     </CopyToClipboard>
 
                     <button
@@ -254,6 +243,7 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
                         array[index] = 1;
                         setChecklistVisibility([...array]);
                       }}
+                      className={styles.expandCollapse}
                     />
                   ) : (
                     <img
@@ -263,6 +253,7 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
                         array[index] = 0;
                         setChecklistVisibility([...array]);
                       }}
+                      className={styles.expandCollapse}
                     />
                   )}
                 </div>
@@ -281,7 +272,6 @@ function InProgress({ trigger, setTrigger, timeStamp }) {
                           type="checkbox"
                           onChange={(e) => handleCheckbox(e, index, i)}
                           name="checkbox"
-                          // id={item}
                           checked={item?.checkedTasks[i]}
                           className={styles.checkbox}
                         />

@@ -28,7 +28,7 @@ function AddPeople({ setAddPeople }) {
 
     if (result === true) {
       setUser(email);
-      // setAddPeople(0);
+
       return;
     }
 
@@ -51,8 +51,6 @@ function AddPeople({ setAddPeople }) {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-
-  console.log(email);
 
   return (
     <div className={styles.container}>

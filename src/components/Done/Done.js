@@ -53,7 +53,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
       array.push(0);
       popUpArray.push(false);
     }
-    console.log(array);
+
     setChecklistVisibility([...array]);
     setPopUp([...popUpArray]);
   };
@@ -66,8 +66,6 @@ function Done({ trigger, setTrigger, timeStamp }) {
   }, []);
 
   useEffect(() => {
-    // let isTaskCreated = localStorage.getItem("isTaskCreated");
-    console.log(trigger);
     fetchDone();
   }, [task, trigger, timeStamp]);
 
@@ -76,21 +74,17 @@ function Done({ trigger, setTrigger, timeStamp }) {
   }, [collapseAllVal]);
 
   const handleCheckbox = (event, taskIndex, checklistIndex) => {
-    // setIsFormChecked(event.target.checked);
     let checkedTasks = doneTask[taskIndex]?.checkedTasks;
     let checkedNumber = doneTask[taskIndex].checkedNumber;
 
     if (event.target.checked === true) {
       checkedTasks[checklistIndex] = true;
       checkedNumber = checkedNumber + 1;
-      // setCheckedNumber(checkedNumber + 1);
     } else {
       checkedTasks[checklistIndex] = false;
       checkedNumber = checkedNumber - 1;
-      // setCheckedNumber(checkedNumber - 1);
     }
 
-    console.log(checkedTasks);
     let doneTaskObj = doneTask[taskIndex];
     doneTaskObj = {
       ...doneTaskObj,
@@ -118,8 +112,6 @@ function Done({ trigger, setTrigger, timeStamp }) {
   };
 
   const changeQueue = async (id, queue) => {
-    console.log(id, queue);
-
     let result = await updateTaskQueueById(id, queue);
     if (result === true) {
       setTrigger(!trigger);
@@ -133,9 +125,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
   };
 
   const fetchTask = async (taskId) => {
-    console.log(taskId);
     let result = await fetchTaskById(taskId);
-    console.log(result);
     setTaskDetails(result);
     setTask(1);
   };
@@ -162,6 +152,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
           onClick={() => {
             collapseAllVal === 1 ? setCollapseAllVal(0) : setCollapseAllVal(1);
           }}
+          className={styles.collapse}
         />
       </div>
 
@@ -194,7 +185,11 @@ function Done({ trigger, setTrigger, timeStamp }) {
                     </span>
                   </span>
 
-                  <img src={dots} onClick={() => openPopUp(index)} />
+                  <img
+                    src={dots}
+                    onClick={() => openPopUp(index)}
+                    className={styles.popUpDots}
+                  />
                 </div>
 
                 {popUp[index] === true && (
@@ -221,12 +216,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
                         })
                       }
                     >
-                      <button
-                        className={styles.share}
-                        // onClick={() => shareTask(item?._id)}
-                      >
-                        Share
-                      </button>
+                      <button className={styles.share}>Share</button>
                     </CopyToClipboard>
 
                     <button
@@ -258,6 +248,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
                         array[index] = 1;
                         setChecklistVisibility([...array]);
                       }}
+                      className={styles.expandCollapse}
                     />
                   ) : (
                     <img
@@ -267,6 +258,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
                         array[index] = 0;
                         setChecklistVisibility([...array]);
                       }}
+                      className={styles.expandCollapse}
                     />
                   )}
                 </div>
@@ -285,7 +277,6 @@ function Done({ trigger, setTrigger, timeStamp }) {
                           type="checkbox"
                           onChange={(e) => handleCheckbox(e, index, i)}
                           name="checkbox"
-                          // id={item}
                           checked={item?.checkedTasks[i]}
                           className={styles.checkbox}
                         />
@@ -304,29 +295,7 @@ function Done({ trigger, setTrigger, timeStamp }) {
 
                 <div className={styles.dueDate}>
                   {item?.dueDate !== null ? (
-                    <span
-                      // style={{
-                      //   background:
-                      //     months.indexOf(item?.dueDate?.split(" ")[0]) <
-                      //       months.indexOf(month) ||
-                      //     (months.indexOf(item?.dueDate?.split(" ")[0]) ===
-                      //       months.indexOf(month) &&
-                      //       Number(item?.dueDate?.split(" ")[1]) < day)
-                      //       ? "#CF3636"
-                      //       : "#DBDBDB",
-                      //   color:
-                      //     months.indexOf(item?.dueDate?.split(" ")[0]) <
-                      //       months.indexOf(month) ||
-                      //     (months.indexOf(item?.dueDate?.split(" ")[0]) ===
-                      //       months.indexOf(month) &&
-                      //       Number(item?.dueDate?.split(" ")[1]) < day)
-                      //       ? "white"
-                      //       : "black",
-                      // }}
-                      className={styles.dateStatus}
-                    >
-                      {item?.dueDate}
-                    </span>
+                    <span className={styles.dateStatus}>{item?.dueDate}</span>
                   ) : (
                     <span></span>
                   )}

@@ -58,7 +58,6 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
       array.push(0);
       popUpArray.push(false);
     }
-    console.log(array);
     setChecklistVisibility([...array]);
     setPopUp([...popUpArray]);
   };
@@ -79,21 +78,17 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
   }, [collapseAllVal]);
 
   const handleCheckbox = (event, taskIndex, checklistIndex) => {
-    // setIsFormChecked(event.target.checked);
     let checkedTasks = toDoTask[taskIndex]?.checkedTasks;
     let checkedNumber = toDoTask[taskIndex].checkedNumber;
 
     if (event.target.checked === true) {
       checkedTasks[checklistIndex] = true;
       checkedNumber = checkedNumber + 1;
-      // setCheckedNumber(checkedNumber + 1);
     } else {
       checkedTasks[checklistIndex] = false;
       checkedNumber = checkedNumber - 1;
-      // setCheckedNumber(checkedNumber - 1);
     }
 
-    console.log(checkedTasks);
     let toDoTaskObj = toDoTask[taskIndex];
     toDoTaskObj = {
       ...toDoTaskObj,
@@ -121,8 +116,6 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
   };
 
   const changeQueue = async (id, queue) => {
-    console.log(id, queue);
-
     let result = await updateTaskQueueById(id, queue);
     if (result === true) {
       setTrigger(!trigger);
@@ -136,9 +129,7 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
   };
 
   const fetchTask = async (taskId) => {
-    console.log(taskId);
     let result = await fetchTaskById(taskId);
-    console.log(result);
     setTaskDetails(result);
     setTask(1);
   };
@@ -148,20 +139,12 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
     setDeleteVal(1);
   };
 
-  // const shareTask = (taskId) => {
-  //   console.log(taskId);
-  //   let link = "http://localhost:3000/view-task/" + taskId;
-  //   console.log(link);
-  //   setTaskLink(link);
-  // };
-
   console.log(collapseAllVal);
   console.log(checklistVisibility);
   console.log(toDoTask);
   console.log(day);
   console.log(month);
   console.log(popUp);
-  // console.log(toDoTask?.createdAt);
   console.log(timeStamp);
   console.log(user);
 
@@ -178,6 +161,7 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                 ? setCollapseAllVal(0)
                 : setCollapseAllVal(1);
             }}
+            className={styles.collapse}
           />
         </div>
       </div>
@@ -210,7 +194,11 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                       )}
                     </span>
                   </span>
-                  <img src={dots} onClick={() => openPopUp(index)} />
+                  <img
+                    src={dots}
+                    onClick={() => openPopUp(index)}
+                    className={styles.popUpDots}
+                  />
                 </div>
 
                 {popUp[index] === true && (
@@ -237,12 +225,7 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                         })
                       }
                     >
-                      <button
-                        className={styles.share}
-                        // onClick={() => shareTask(item?._id)}
-                      >
-                        Share
-                      </button>
+                      <button className={styles.share}>Share</button>
                     </CopyToClipboard>
 
                     <button
@@ -274,6 +257,7 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                         array[index] = 1;
                         setChecklistVisibility([...array]);
                       }}
+                      className={styles.expandCollapse}
                     />
                   ) : (
                     <img
@@ -283,6 +267,7 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                         array[index] = 0;
                         setChecklistVisibility([...array]);
                       }}
+                      className={styles.expandCollapse}
                     />
                   )}
                 </div>
@@ -301,7 +286,6 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                           type="checkbox"
                           onChange={(e) => handleCheckbox(e, index, i)}
                           name="checkbox"
-                          // id={item}
                           checked={item?.checkedTasks[i]}
                           className={styles.checkbox}
                         />

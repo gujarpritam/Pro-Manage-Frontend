@@ -7,8 +7,6 @@ import highPriorityImg from "../../assets/icons/pink_circle.png";
 function SharedTask({ taskDetails }) {
   const [day, setDay] = useState(new Date().getDate());
   const [month, setMonth] = useState("");
-  // const [checkedNumber, setCheckedNumber] = useState(0);
-  // const [taskData, setTaskData] = useState({});
 
   const months = [
     "Jan",
@@ -28,20 +26,7 @@ function SharedTask({ taskDetails }) {
   useEffect(() => {
     const today = new Date();
     setMonth(months[today.getMonth()]);
-
-    // setTaskData({ ...taskDetails });
   }, []);
-
-  // const handleCheckbox = (event) => {
-  //   if (event.target.checked === true) {
-  //     setCheckedNumber(checkedNumber + 1);
-  //   } else {
-  //     setCheckedNumber(checkedNumber - 1);
-  //   }
-  // };
-
-  // console.log(taskData);
-  console.log(taskDetails);
 
   return (
     <div className={styles.task}>
@@ -71,9 +56,7 @@ function SharedTask({ taskDetails }) {
               <div className={styles.taskBox}>
                 <input
                   type="checkbox"
-                  // onChange={handleCheckbox}
                   name="checkbox"
-                  // id={item}
                   checked={taskDetails?.checkedTasks[index]}
                   className={styles.checkbox}
                 />
@@ -89,29 +72,7 @@ function SharedTask({ taskDetails }) {
         {taskDetails?.dueDate !== null ? (
           <div className={styles.dueDate}>
             <p className={styles.dateStyle}>Due Date</p>
-            <span
-              // style={{
-              //   background:
-              //     months.indexOf(taskDetails?.dueDate?.split(" ")[0]) <
-              //       months.indexOf(month) ||
-              //     (months.indexOf(taskDetails?.dueDate?.split(" ")[0]) ===
-              //       months.indexOf(month) &&
-              //       Number(taskDetails?.dueDate?.split(" ")[1]) < day)
-              //       ? "#CF3636"
-              //       : "#DBDBDB",
-              //   color:
-              //     months.indexOf(taskDetails?.dueDate?.split(" ")[0]) <
-              //       months.indexOf(month) ||
-              //     (months.indexOf(taskDetails?.dueDate?.split(" ")[0]) ===
-              //       months.indexOf(month) &&
-              //       Number(taskDetails?.dueDate?.split(" ")[1]) < day)
-              //       ? "white"
-              //       : "black",
-              // }}
-              className={styles.dateStatus}
-            >
-              {taskDetails?.dueDate}
-            </span>
+            <span className={styles.dateStatus}>{taskDetails?.dueDate}</span>
           </div>
         ) : (
           <span></span>

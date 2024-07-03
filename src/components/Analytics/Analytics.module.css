@@ -1,11 +1,9 @@
 .container{
   width: 85%;
   height: 100%;
-  /* border: 1px solid red; */
 }
 
 .heading{
-  /* width: 100%; */
   height: 10%;
   display: flex;
   align-items: center;
@@ -13,7 +11,6 @@
   padding: 0rem 0.5rem;
   margin-left: 1rem;
   box-sizing: border-box;
-  /* border: 1px solid red; */
 }
 
 .subContainer{
@@ -23,7 +20,6 @@
   align-items: center;
   justify-content: space-evenly;
   margin-left: 1rem;
-  /* border: 1px solid saddlebrown; */
 }
 
 .boxOne, .boxTwo{
@@ -34,7 +30,6 @@ align-items: center;
   width: 48%;
   background: #F9FCFF;
   border-radius: 10px;
-  /* border: 1px solid saddlebrown; */
 }
 
 .subBoxOne, .subBoxTwo{
@@ -44,7 +39,6 @@ align-items: center;
   justify-content: space-evenly;
   height: 80%;
   width: 80%;
-  /* border: 1px solid greenyellow; */
 }
 
 .data{
@@ -52,7 +46,6 @@ align-items: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border: 1px solid green; */
 }
 
 .analyticsImg{

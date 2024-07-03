@@ -15,7 +15,6 @@ function Board() {
   const [trigger, setTrigger] = useState(true);
   const [addPeople, setAddPeople] = useState(0);
   const [timeStamp, setTimeStamp] = useState("This Week");
-  // const [timeStampId, setTimeStampId] = useState("week");
 
   const months = [
     "Jan",
@@ -34,7 +33,6 @@ function Board() {
 
   useEffect(() => {
     const today = new Date();
-    console.log(today);
 
     setDay(today.getDate());
     setMonth(months[today.getMonth()]);
@@ -46,7 +44,6 @@ function Board() {
   };
 
   const handleTimeStampChange = (e) => {
-    console.log(e.target.value);
     if (e.target.value === "Today") {
       setTimeStamp(e.target.value);
     }
@@ -57,8 +54,6 @@ function Board() {
       setTimeStamp(e.target.value);
     }
   };
-
-  console.log(timeStamp);
 
   return (
     <div className={styles.container}>

@@ -97,8 +97,6 @@ function Settings() {
     return;
   };
 
-  console.log(userData);
-
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Settings</h3>
@@ -155,8 +153,6 @@ function Settings() {
             type={"password"}
           ></input>
         </div>
-        {/* <p className={styles.error}>Confirm Password can't be empty</p>
-        <p className={styles.error}>Passwords are not matching</p> */}
 
         <button onClick={handleUpdate} className={styles.update}>
           Update

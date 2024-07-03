@@ -13,7 +13,6 @@ align-items: center;
   width: 90%;
   height: 90%;
   position: relative;
-  /* border: 1px solid slateblue; */
 }
 
 .boxOne{
@@ -23,7 +22,6 @@ align-items: center;
   width: 100%;
   font-size: x-small;
   margin: 3% 0%;
-  /* border: 1px solid salmon; */
 }
 
 .boxTwo{
@@ -38,7 +36,6 @@ align-items: center;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  /* border: 1px solid black; */
 }
 
 .checklist{
@@ -68,13 +65,10 @@ align-items: center;
 .taskInput{
   width: 90%;
   font-weight: bold;
-  /* border: 1px solid sandybrown; */
 }
 
 .dueDate{
-  /* border: 1px solid gold; */
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   font-size: small;
   font-weight: bold;
@@ -95,19 +89,16 @@ align-items: center;
   display: flex;
   justify-content: flex-end;
   width: 70%;
-  /* border: 1px solid blue; */
   box-sizing: border-box;
 }
 
 .dateStatus{
-  /* box-sizing: border-box; */
   border: none;
   border-radius: 5px;
   background-color: #CF3636;
   padding: 1.5%;
   margin: 1%;
   color: #FFFFFF;
-  /* font-weight: bold; */
   font-size: x-small;
 }
 

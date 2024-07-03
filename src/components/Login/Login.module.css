@@ -5,11 +5,9 @@
   align-items: center;
   height: 60%;
   width: 100%;
-  /* border: 1px solid black; */
 }
 
 .box{
-  /* border: 1px solid seagreen; */
   height: 70%;
   width: 80%;
 display: flex;

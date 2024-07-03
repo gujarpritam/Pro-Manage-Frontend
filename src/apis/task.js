@@ -13,7 +13,6 @@ export const saveTask = async ({
 }) => {
   try {
     const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/add`;
-    console.log(dueDate);
 
     const response = await axios.post(reqUrl, {
       title,
@@ -35,7 +34,6 @@ export const saveTask = async ({
 
 export const getTask = async (category, timeStamp, user) => {
   try {
-    console.log(category, timeStamp, user);
     const reqUrl = `${
       process.env.REACT_APP_BACKEND_URL
     }/task/getTask?category=${category || ""}&timeStamp=${
@@ -43,8 +41,6 @@ export const getTask = async (category, timeStamp, user) => {
     }&user=${user || ""}`;
 
     const response = await axios.get(reqUrl);
-    console.log(response?.data?.data);
-    console.log(typeof response?.data?.data);
 
     let result = Array.from(response?.data?.data);
     return result;
@@ -59,19 +55,9 @@ export const updateTaskQueueById = async (taskId, queue) => {
       taskId || ""
     }&queue=${queue || ""}`;
 
-    // const token = localStorage.getItem("swiptoryToken");
-
-    // axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl);
 
     if (response?.data?.updated === true) {
-      // let trigger = localStorage.getItem("trigger");
-      // console.log(trigger);
-      // if (trigger == 1) {
-      //   localStorage.setItem("trigger", 0);
-      // } else {
-      //   localStorage.setItem("trigger", 1);
-      // }
       localStorage.setItem("queue", queue);
     }
     return response?.data?.updated;
@@ -87,7 +73,7 @@ export const fetchTaskById = async (taskId) => {
     }`;
 
     const response = await axios.get(reqUrl);
-    // console.log(response?.data);
+
     return response?.data?.data;
   } catch (error) {
     console.log(error);
@@ -108,16 +94,12 @@ export const updateTask = async (id, taskData) => {
 
 export const deleteTask = async (id) => {
   try {
-    console.log(id);
     const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/delete?id=${
       id || ""
     }`;
 
     const response = await axios.delete(reqUrl);
-    // console.log(response?.data?.data);
-    // console.log(typeof response?.data?.data);
 
-    // let result = Array.from(response?.data?.data);
     return response?.data?.isDeleted;
   } catch (error) {
     console.log(error);
@@ -126,14 +108,11 @@ export const deleteTask = async (id) => {
 
 export const getDetails = async (user) => {
   try {
-    // console.log(filter);
     const reqUrl = `${
       process.env.REACT_APP_BACKEND_URL
     }/task/getAnalyticsDetails?user=${user || ""}`;
 
     const response = await axios.get(reqUrl);
-    console.log(response?.data?.data);
-    // console.log(typeof response?.data?.data);
 
     let result = response?.data?.data;
     return result;
@@ -151,7 +130,6 @@ export const addUser = async (email) => {
     const response = await axios.post(reqUrl);
 
     return response?.data?.isUserCreated;
-    // localStorage.setItem("isTaskCreated", response?.data?.isTaskCreated);
   } catch (error) {
     console.log(error);
   }
@@ -161,7 +139,6 @@ export const getAssignee = async () => {
   try {
     const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/task/getAssignee`;
 
-    console.log("assignee");
     const response = await axios.get(reqUrl);
 
     return response?.data?.data;

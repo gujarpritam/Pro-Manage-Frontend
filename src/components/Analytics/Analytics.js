@@ -16,8 +16,6 @@ function Analytics() {
     fetchDetails();
   }, []);
 
-  console.log(info);
-
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Analytics</h3>
