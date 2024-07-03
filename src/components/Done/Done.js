@@ -199,12 +199,12 @@ function Done({ trigger, setTrigger, timeStamp }) {
                         toast("Link Copied", {
                           position: "top-right",
                           autoClose: 4000,
-                          hideProgressBar: false,
-                          closeOnClick: true,
-                          pauseOnHover: false,
+                          hideProgressBar: true,
+                          closeOnClick: false,
+                          pauseOnHover: true,
                           draggable: true,
                           progress: undefined,
-                          theme: "light",
+                          theme: "colored",
                         })
                       }
                     >

@@ -208,11 +208,11 @@ function ToDo({ trigger, setTrigger, timeStamp }) {
                           position: "top-right",
                           autoClose: 4000,
                           hideProgressBar: false,
-                          closeOnClick: true,
-                          pauseOnHover: false,
+                          closeOnClick: false,
+                          pauseOnHover: true,
                           draggable: true,
                           progress: undefined,
-                          theme: "light",
+                          theme: "colored",
                         })
                       }
                     >
