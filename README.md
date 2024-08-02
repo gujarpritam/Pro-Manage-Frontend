@@ -53,7 +53,7 @@
 ![filtered_tasks_on_basis_of_creation_date](https://github.com/user-attachments/assets/bbd8c914-5a53-4bf5-a00b-a04577ef605d)
 
 # Analytics:
-![analytics-of-tasks](https://github.com/user-attachments/assets/775ca77e-766f-4364-8ba8-e7bc9528ad16)
+![analytics](https://github.com/user-attachments/assets/14cea872-2812-4f36-86aa-7985a4f502f5)
 
 # Logout Popup:
 ![logout_popup](https://github.com/user-attachments/assets/da38dccc-b116-43ca-a883-1762249c3cb3)
