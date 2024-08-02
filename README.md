@@ -2,10 +2,10 @@
 
 # Output:
 
-# Registartion Screen:
+# Registration Screen:
 ![registration_screen](https://github.com/user-attachments/assets/fb65b10c-5bd3-41cd-9eda-0af8373698f5)
 
-# Login Screen
+# Login Screen:
 ![login_screen](https://github.com/user-attachments/assets/403c89e2-0636-4d5d-af15-33bb15007b56)
 
 # Initial screen after first login:
