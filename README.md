@@ -52,6 +52,7 @@
 # Tasks can be filtered on basis of creation date of tasks: Today, This Week or This Month
 ![filtered_tasks_on_basis_of_creation_date](https://github.com/user-attachments/assets/6b5189fa-95bb-4e8c-b1bf-5abba0fa326c)
 
+
 # Analytics:
 ![analytics](https://github.com/user-attachments/assets/14cea872-2812-4f36-86aa-7985a4f502f5)
 
