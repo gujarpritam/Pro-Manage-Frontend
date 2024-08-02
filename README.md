@@ -1,4 +1,4 @@
-![after_addition_of_task](https://github.com/user-attachments/assets/f7a6633e-f63d-43c6-9f25-eefa1c73beaa)# Pro Manage
+# Pro Manage
 
 # Output:
 
@@ -35,9 +35,25 @@
 
 ![tasks-on-board](https://github.com/user-attachments/assets/1bda8297-577c-4b1b-8827-3afeba4f5244)
 
-
 # Screens while adding people to Board:
 ![add_people_to_board](https://github.com/user-attachments/assets/da33a1a0-943e-4db0-aeaa-94f51d2cedfa)
 
 ![added_person_to_board](https://github.com/user-attachments/assets/1db39425-8e77-4274-9677-ef5b0f09dedb)
 
+# Edit, share & delete option on task:
+![edit_share_delete_options](https://github.com/user-attachments/assets/0c912013-4da1-4e02-b8ec-c5df61849a91)
+
+# Tasks can be shared with read only access:
+![shared-task](https://github.com/user-attachments/assets/a7f3028b-6233-4673-8bb7-8b4b2db15a40)
+
+# Confirmation message before deleting a task:
+![delete-popup](https://github.com/user-attachments/assets/58c8454c-263f-49b3-a311-693116e67147)
+
+# Tasks can be filtered on basis of creation date of tasks: Today, This Week or This Month
+![filtered_tasks_on_basis_of_creation_date](https://github.com/user-attachments/assets/bbd8c914-5a53-4bf5-a00b-a04577ef605d)
+
+# Analytics:
+![analytics-of-tasks](https://github.com/user-attachments/assets/775ca77e-766f-4364-8ba8-e7bc9528ad16)
+
+# Logout Popup:
+![logout_popup](https://github.com/user-attachments/assets/da38dccc-b116-43ca-a883-1762249c3cb3)
