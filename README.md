@@ -41,7 +41,7 @@
 ![added_person_to_board](https://github.com/user-attachments/assets/1db39425-8e77-4274-9677-ef5b0f09dedb)
 
 # Edit, share & delete option on task:
-![edit_share_delete_options](https://github.com/user-attachments/assets/0c912013-4da1-4e02-b8ec-c5df61849a91)
+![edit_share_delete_options](https://github.com/user-attachments/assets/d6dd1219-28f5-4cd6-85e5-9f5800216a59)
 
 # Tasks can be shared with read only access:
 ![shared-task](https://github.com/user-attachments/assets/a7f3028b-6233-4673-8bb7-8b4b2db15a40)
@@ -50,7 +50,7 @@
 ![delete-popup](https://github.com/user-attachments/assets/58c8454c-263f-49b3-a311-693116e67147)
 
 # Tasks can be filtered on basis of creation date of tasks: Today, This Week or This Month
-![filtered_tasks_on_basis_of_creation_date](https://github.com/user-attachments/assets/bbd8c914-5a53-4bf5-a00b-a04577ef605d)
+![filtered_tasks_on_basis_of_creation_date](https://github.com/user-attachments/assets/6b5189fa-95bb-4e8c-b1bf-5abba0fa326c)
 
 # Analytics:
 ![analytics](https://github.com/user-attachments/assets/14cea872-2812-4f36-86aa-7985a4f502f5)
